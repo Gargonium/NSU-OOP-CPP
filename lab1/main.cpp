@@ -1,27 +1,32 @@
-
-#include "task1.h"
 #include <iostream>
 #include <string>
+#include <algorithm>
+
+using namespace std;
+
+// I want to recreate this, with Hash-array
 
 //KVE - Key-Value Element
 
 class FlatMap {
 private:
-	int size;
-	string* keys;
-	string* values;
+	int _size;
+	string* _keys;
+	string* _values;
+	//Add _capacity	
 
 	int KVEIndex(string key) {
+		// use sort array!!!!
 		bool flag = false;
 		int l = 0; 
-		int r = size;
+		int r = _size;
 		int mid;
 
 		while ((l <= r) && (flag != true)) {
 			mid = (l + r) / 2; 
 
-			if (keys[mid] == key) flag = true; 
-			if (keys[mid] > key) r = mid - 1; 
+			if (_keys[mid] == key) flag = true; 
+			if (_keys[mid] > key) r = mid - 1; 
 			else l = mid + 1;
 		}
 
@@ -34,26 +39,26 @@ private:
 	}
 
 	void Àppend(string key, string value) {
-		string* new_keys = new string[size + 1];
-		string* new_values = new string[size + 1];
-		for (int i = 0; i < size; i++) {
-			new_keys[i] = keys[i];
-			new_values[i] = values[i];
-		}
-		delete[] keys;
-		delete[] values;
+		string* new_keys = new string[_size + 1];
+		string* new_values = new string[_size + 1];
 
-		new_keys[size + 1] = key;
-		new_values[size + 1] = value;
+		copy(_keys, _keys + _size, new_keys);
+		copy(_values, _values + _size, new_values);
 
-		keys = new_keys;
-		values = new_values;
+		delete[] _keys;
+		delete[] _values;
 
-		size++;
+		new_keys[_size + 1] = key;
+		new_values[_size + 1] = value;
+
+		_keys = new_keys;
+		_values = new_values;
+
+		_size++;
 	}
 
 	void ChangeValue(int kve_index, string value) {
-		values[kve_index] = value;
+		_values[kve_index] = value;
 	}
 
 	void DelKVE(string key) {
@@ -63,63 +68,76 @@ private:
 			return;
 		}
 
-		string* new_keys = new string[size - 1];
-		string* new_values = new string[size - 1];
-		for (int i = 0; i < size; i++) {
+		string* new_keys = new string[_size - 1];
+		string* new_values = new string[_size - 1];
+		for (int i = 0; i < _size; i++) {
 			if (i == kve_index) {
 				continue;
 			}
 
-			new_keys[i] = keys[i];
-			new_values[i] = values[i];
+			new_keys[i] = _keys[i];
+			new_values[i] = _values[i];
 		}
 
-		delete[] keys;
-		delete[] values;
+		delete[] _keys;
+		delete[] _values;
 
-		keys = new_keys;
-		values = new_values;
+		_keys = new_keys;
+		_values = new_values;
 
-		size--;
+		_size--;
 	}
 
 public:
 	FlatMap() {
-		size = 0;
-		keys = new string[size];
-		values = new string[size];
+		_size = 0;
+		_keys = new string[_size];
+		_values = new string[_size];
 	}
 
 	FlatMap(const FlatMap& other_map) {
-		size = other_map.size;
-		keys = other_map.keys;
-		values = other_map.values;
+		_size = other_map._size;
+		_keys = other_map._keys;
+		_values = other_map._values;
+		copy(_keys, _keys + _size, other_map._keys);
+		copy(_values, _values + _size, other_map._values);
 	}
 
 	~FlatMap() {
-		delete[] keys;
-		delete[] values;
+		delete[] _keys;
+		delete[] _values;
 	}
 
-	FlatMap& FlatMap::operator=(const FlatMap& n) {
-		if (this == &n) {
+	FlatMap& FlatMap::operator=(const FlatMap& other_map) {
+		if (this == &other_map) {
 			return *this;
 		}
-		delete[] keys;
-		delete[] values;
-		keys = new string[n.size];
-		values = new string[n.size];
+		delete[] _keys;
+		delete[] _values;
+		_keys = new string[other_map._size];
+		_values = new string[other_map._size];
 
-		for (int i = 0; i < n.size; i++) {
-			keys[i] = n.keys[i];
-			values[i] = n.values[i];
+		copy(_keys, _keys + _size, other_map._keys);
+		copy(_values, _values + _size, other_map._values);
+
+		_size = other_map._size;
+	}
+
+	string& operator[] (const string& key) {
+		int kve_index = KVEIndex(key);
+		if (kve_index == -1) {
+			this->Àppend(key, "");
 		}
-
-		size = n.size;
+		return _values[kve_index];
 	}
 };
 
 int main() {
+
+	FlatMap a;
+	a["key"] = "value";
+
+	string value = a["key"];
  
     return 0;
 }
