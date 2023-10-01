@@ -4,30 +4,38 @@
 
 using namespace std;
 
-// I want to recreate this, with Hash-array
-
 //KVE - Key-Value Element
 
 class FlatMap {
 private:
-	int _size;
-	string* _keys;
-	string* _values;
+	int size;
+	struct KVE{
+		string key;
+		string value;
+	};
+	KVE* kve;
+	int capacity;
 	//Add _capacity	
 
 	int KVEIndex(string key) {
-		// use sort array!!!!
+		sort();
 		bool flag = false;
 		int l = 0; 
-		int r = _size;
-		int mid;
+		int r = size;
+		int mid = -1;
 
 		while ((l <= r) && (flag != true)) {
 			mid = (l + r) / 2; 
 
-			if (_keys[mid] == key) flag = true; 
-			if (_keys[mid] > key) r = mid - 1; 
-			else l = mid + 1;
+			if (kve[mid].key == key) {
+				flag = true;
+			}
+			if (kve[mid].key > key) {
+				r = mid - 1;
+			}
+			else {
+				l = mid + 1;
+			}
 		}
 
 		if (flag) {
@@ -39,26 +47,25 @@ private:
 	}
 
 	void Аppend(string key, string value) {
-		string* new_keys = new string[_size + 1];
-		string* new_values = new string[_size + 1];
+		KVE* new_kve = new KVE[capacity];
 
-		copy(_keys, _keys + _size, new_keys);
-		copy(_values, _values + _size, new_values);
+		copy(kve, kve + size, new_kve);
 
-		delete[] _keys;
-		delete[] _values;
+		delete[] kve;
 
-		new_keys[_size + 1] = key;
-		new_values[_size + 1] = value;
+		new_kve[size + 1].key = key;
+		new_kve[size + 1].value = value;
 
-		_keys = new_keys;
-		_values = new_values;
+		kve = new_kve;
 
-		_size++;
+		size++;
+		if (size == capacity) {
+			recap();
+		}
 	}
 
 	void ChangeValue(int kve_index, string value) {
-		_values[kve_index] = value;
+		kve[kve_index].value = value;
 	}
 
 	void DelKVE(string key) {
@@ -68,76 +75,93 @@ private:
 			return;
 		}
 
-		string* new_keys = new string[_size - 1];
-		string* new_values = new string[_size - 1];
-		for (int i = 0; i < _size; i++) {
+		KVE* new_kve = new KVE[capacity];
+		for (int i = 0; i < size; i++) {
 			if (i == kve_index) {
 				continue;
 			}
 
-			new_keys[i] = _keys[i];
-			new_values[i] = _values[i];
+			new_kve[i].key = kve[i].key;
+			new_kve[i].value = kve[i].value;
 		}
 
-		delete[] _keys;
-		delete[] _values;
+		delete[] kve;
 
-		_keys = new_keys;
-		_values = new_values;
+		kve = new_kve;
+		size--;
+	}
 
-		_size--;
+	void sort() {
+		for (int i = 0; i < size; i++) {
+			for (int j = 0; j < size - 1; j++) {
+				if (kve[j].key > kve[j + 1].key) {
+					string k = kve[j].key; // создали дополнительную переменную
+					string v = kve[j].value;
+					kve[j].key = kve[j+1].key; // меняем местами
+					kve[j].value = kve[j + 1].value;
+					kve[j+1].key = k; // значения элементов
+					kve[j + 1].value = v;
+				}
+			}
+		}
+	}
+
+	void recap() {
+		capacity *= 2;
+		KVE* new_kve = new KVE[capacity];
+
+		copy(kve, kve + size, new_kve);
+		delete[] kve;
+		kve = new_kve;
 	}
 
 public:
 	FlatMap() {
-		_size = 0;
-		_keys = new string[_size];
-		_values = new string[_size];
+		size = 0;
+		capacity = 10;
+		kve = new KVE[size];
 	}
 
 	FlatMap(const FlatMap& other_map) {
-		_size = other_map._size;
-		_keys = other_map._keys;
-		_values = other_map._values;
-		copy(_keys, _keys + _size, other_map._keys);
-		copy(_values, _values + _size, other_map._values);
+		size = other_map.size;
+		kve = other_map.kve;
+		capacity = other_map.capacity;
+		copy(kve, kve + size, other_map.kve);
 	}
 
 	~FlatMap() {
-		delete[] _keys;
-		delete[] _values;
+		delete[] kve;
 	}
 
 	FlatMap& FlatMap::operator=(const FlatMap& other_map) {
 		if (this == &other_map) {
 			return *this;
 		}
-		delete[] _keys;
-		delete[] _values;
-		_keys = new string[other_map._size];
-		_values = new string[other_map._size];
+		delete[] kve;
+		kve = new KVE[other_map.capacity];
 
-		copy(_keys, _keys + _size, other_map._keys);
-		copy(_values, _values + _size, other_map._values);
+		copy(kve, kve + size, other_map.kve);
 
-		_size = other_map._size;
+		size = other_map.size;
+		capacity = other_map.capacity;
 	}
 
-	string& operator[] (const string& key) {
+	string& FlatMap::operator[] (const string& key) {
 		int kve_index = KVEIndex(key);
 		if (kve_index == -1) {
 			this->Аppend(key, "");
 		}
-		return _values[kve_index];
+		return kve[kve_index].value;
 	}
 };
 
 int main() {
 
 	FlatMap a;
-	a["key"] = "value";
 
-	string value = a["key"];
- 
-    return 0;
+	a["Hello"] = "World";
+
+	cout << a["Hello"] << endl;
+
+	return 0;
 }
