@@ -6,7 +6,7 @@ using namespace std;
 class FlatMap {
     struct KVE {
         string key;
-        string name;
+        string value;
     };
     KVE* kve;
 
@@ -22,7 +22,7 @@ public:
 
     FlatMap& operator=(const FlatMap& other_map);
 
-    int size() const;
+    int getSize() const;
 
     string& operator[](const string& key);
 
@@ -41,7 +41,7 @@ public:
 private:
 
     int binSearch(KVE arr[], int low, int high, string a);
-    void shift(KVE* arr, int border, int index, string mode);
+    void shift(int border, int index, string mode);
     void reCap();
 
 };

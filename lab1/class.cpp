@@ -42,7 +42,7 @@ FlatMap& FlatMap::operator=(const FlatMap& other_map)
     return *this;
 };
 
-int FlatMap::size() const {
+int FlatMap::getSize() const {
     return _size;
 };
 
@@ -51,7 +51,7 @@ string& FlatMap::operator[](const string& key) {
     if (_size == 0) {
         kve[0].key = key;
         _size++;
-        return kve[0].name;
+        return kve[0].value;
     }
 
     if (_size == _capacity) {
@@ -65,19 +65,19 @@ string& FlatMap::operator[](const string& key) {
         kve_index = (kve_index + 1) * -1;
 
         if (kve[kve_index].key != " ") {
-            shift(kve, _size, kve_index, "r");
+            shift(_size, kve_index, "r");
         }
 
         kve[kve_index].key = key;
         _size++;
     }
 
-    return kve[kve_index].name;
+    return kve[kve_index].value;
 
 }
 
 bool FlatMap::contains(const string& key) {
-    return binSearch(kve, 0, _size - 1, key) > 0 ? true : false;
+    return (binSearch(kve, 0, _size - 1, key) >= 0) ? true : false;
 }
 
 int FlatMap::erase(const string& key) {
@@ -89,11 +89,11 @@ int FlatMap::erase(const string& key) {
     }
     else {
         if (kve_index != _capacity - 1 && kve[kve_index + 1].key != " ") {
-            shift(kve, _size, kve_index, "l");
+            shift(_size, kve_index, "l");
         }
 
         kve[_size - 1].key = " ";
-        kve[_size - 1].name = " ";
+        kve[_size - 1].value = " ";
 
         _size--;
 
@@ -105,30 +105,28 @@ void FlatMap::clear() {
     while (_size > 0)
     {
         kve[_size - 1].key = " ";
-        kve[_size - 1].name = " ";
+        kve[_size - 1].value = " ";
 
         _size--;
     }
 };
 
 string& FlatMap::begin() {
-    string& iterator = kve[0].name;
-    return iterator;
+    return kve[0].value;
 }
 
 string& FlatMap::end() {
-    string& iterator = kve[_size - 1].name;
-    return iterator;
+    return kve[_size - 1].value;
 }
 
 string& FlatMap::find(const string& key) {
     int kve_index = binSearch(kve, 0, _size - 1, key);
 
     if (kve_index < 0) {
-        return kve[_size - 1].name;
+        return kve[_size - 1].value;
     }
     else {
-        return kve[kve_index].name;
+        return kve[kve_index].value;
     }
 }
 
@@ -152,16 +150,16 @@ int FlatMap::binSearch(KVE arr[], int low, int high, string a) {
     return (-1 * low) - 1;
 };
 
-void FlatMap::shift(KVE* arr, int extream, int index, string a) {
-    if (a == "r") {
-        while (extream != index) {
-            arr[extream] = arr[extream - 1];
-            extream--;
+void FlatMap::shift(int border, int index, string mode) {
+    if (mode == "r") {
+        while (border != index) {
+            kve[border] = kve[border - 1];
+            border--;
         }
     }
     else {
-        while (index != extream - 1) {
-            arr[index] = arr[index + 1];
+        while (index != border - 1) {
+            kve[index] = kve[index + 1];
             index++;
         }
     }
