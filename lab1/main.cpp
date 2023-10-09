@@ -1,12 +1,28 @@
+﻿#include <iostream>
+#include <stdbool.h>
+#include <string.h>
+#include "flat_map_class.h"
 
-#include "task1.h"
-#include "task2.h"
-#include <iostream>
+using namespace std;
 
 int main() {
-    std::cout << task::say_hello("world") << "\n";
-    const int x = 2;
-    const int y = 3;
-    std::cout << x << " + " << y << " = " << task::plus(x, y) << "\n";
-    return 0;
+    FlatMap car;
+
+    car["brand"] = "toyota";
+    car["model"] = "camry";
+    car["engine_vol"] = "3.5";
+    car["power"] = "249 h. p.";
+    car["price"] = "2 mil rub";
+
+    /*cout << "Price: " << car["price"] << endl;
+
+    cout << "Begin: " << car.begin() << endl;
+
+    cout << "Find model: " << car.find("model") << endl;
+
+    cout << 3 / 2 << endl;*/
+
+    for (auto it = car.begin(); it != car.end(); ++it) {
+        std::cout << it->key << ": " << it->value << "\n";
+    }
 }
