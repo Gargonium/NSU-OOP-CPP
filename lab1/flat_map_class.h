@@ -40,8 +40,8 @@ public:
 
 private:
 
-    int binSearch(KVE arr[], int low, int high, string a);
-    void shift(int border, int index, string mode);
+    int binSearch(int low, int high, const string& a);
+    void shift(int border, int index, char mode);
     void reCap();
 
 };

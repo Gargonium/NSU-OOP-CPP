@@ -1,4 +1,4 @@
-#include "class.h"
+#include "flat_map_class.h"
 #include "gtest/gtest.h"
 
 void FillFlatMap(FlatMap& a) {

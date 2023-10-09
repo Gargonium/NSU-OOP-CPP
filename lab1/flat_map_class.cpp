@@ -1,8 +1,9 @@
-﻿#include "class.h"
+﻿#include "flat_map_class.h"
 #include <iostream>
 #include <stdbool.h>
 #include <string.h>
-#define START_CAPACITY 10
+
+const int START_CAPACITY = 10;
 
 using namespace std;
 
@@ -27,18 +28,17 @@ FlatMap::~FlatMap() {
 
 FlatMap& FlatMap::operator=(const FlatMap& other_map)
 {
-    if (this == &other_map) {
-        return *this;
+    if (this != &other_map) {
+        delete[] kve;
+
+        kve = new KVE[other_map._capacity];
+
+        copy(other_map.kve, other_map.kve + other_map._size, kve);
+
+        _capacity = other_map._capacity;
+        _size = other_map._size;
     };
-    delete[] kve;
-
-    kve = new KVE[other_map._capacity];
-
-    copy(other_map.kve, other_map.kve + other_map._size, kve);
-
-    _capacity = other_map._capacity;
-    _size = other_map._size;
-
+    
     return *this;
 };
 
@@ -58,14 +58,14 @@ string& FlatMap::operator[](const string& key) {
         reCap();
     }
 
-    int kve_index = binSearch(kve, 0, _size - 1, key);
+    int kve_index = binSearch(0, _size - 1, key);
 
     if (kve_index < 0) {
 
         kve_index = (kve_index + 1) * -1;
 
         if (kve[kve_index].key != " ") {
-            shift(_size, kve_index, "r");
+            shift(_size, kve_index, 'r');
         }
 
         kve[kve_index].key = key;
@@ -77,19 +77,19 @@ string& FlatMap::operator[](const string& key) {
 }
 
 bool FlatMap::contains(const string& key) {
-    return (binSearch(kve, 0, _size - 1, key) >= 0) ? true : false;
+    return (binSearch(0, _size - 1, key) >= 0) ? true : false;
 }
 
 int FlatMap::erase(const string& key) {
 
-    int kve_index = binSearch(kve, 0, _size - 1, key);
+    int kve_index = binSearch(0, _size - 1, key);
 
     if (kve_index < 0) {
         return 0;
     }
     else {
         if (kve_index != _capacity - 1 && kve[kve_index + 1].key != " ") {
-            shift(_size, kve_index, "l");
+            shift(_size, kve_index, 'l');
         }
 
         kve[_size - 1].key = " ";
@@ -120,7 +120,7 @@ FlatMap::KVE* FlatMap::end() {
 }
 
 FlatMap::KVE* FlatMap::find(const string& key) {
-    int kve_index = binSearch(kve, 0, _size - 1, key);
+    int kve_index = binSearch(0, _size - 1, key);
 
     if (kve_index < 0) {
         return kve + _size - 1;
@@ -130,16 +130,16 @@ FlatMap::KVE* FlatMap::find(const string& key) {
     }
 }
 
-int FlatMap::binSearch(KVE arr[], int low, int high, string a) {
+int FlatMap::binSearch(int low, int high, const string& a) {
 
     while (low <= high) {
         int mid = low + (high - low) / 2;
 
-        if (arr[mid].key == a) {
+        if (kve[mid].key == a) {
             return mid;
         }
 
-        if (arr[mid].key < a) {
+        if (kve[mid].key < a) {
             low = mid + 1;
         }
         else {
@@ -150,8 +150,8 @@ int FlatMap::binSearch(KVE arr[], int low, int high, string a) {
     return (-1 * low) - 1;
 };
 
-void FlatMap::shift(int border, int index, string mode) {
-    if (mode == "r") {
+void FlatMap::shift(int border, int index, char mode) {
+    if (mode == 'r') {
         while (border != index) {
             kve[border] = kve[border - 1];
             border--;
