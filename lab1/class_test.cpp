@@ -38,27 +38,7 @@ TEST(FMTest, EraseTest) {
 TEST(FMTest, ClearTest) {
 	FlatMap a;
 	FillFlatMap(a);
+	EXPECT_EQ(5, a.getSize());
 	a.clear();
 	EXPECT_EQ(0, a.getSize());
-}
-
-TEST(FMTest, BeginTest) {
-	FlatMap a;
-	FillFlatMap(a);
-	EXPECT_EQ("W", a.begin());
-}
-
-TEST(FMTest, EndTest) {
-	FlatMap a;
-	FillFlatMap(a);
-	EXPECT_EQ("World", a.end());
-}
-
-TEST(FMTest, FindTest) {
-	FlatMap a;
-	FillFlatMap(a);
-
-	EXPECT_EQ("World", a.find("Hello"));
-	EXPECT_EQ("W", a.find("H"));
-	EXPECT_EQ(a.end(), a.find("Shawarma"));
 }

@@ -111,22 +111,22 @@ void FlatMap::clear() {
     }
 };
 
-string& FlatMap::begin() {
-    return kve[0].value;
+FlatMap::KVE* FlatMap::begin() {
+    return kve;
 }
 
-string& FlatMap::end() {
-    return kve[_size - 1].value;
+FlatMap::KVE* FlatMap::end() {
+    return kve + _size - 1;
 }
 
-string& FlatMap::find(const string& key) {
+FlatMap::KVE* FlatMap::find(const string& key) {
     int kve_index = binSearch(kve, 0, _size - 1, key);
 
     if (kve_index < 0) {
-        return kve[_size - 1].value;
+        return kve + _size - 1;
     }
     else {
-        return kve[kve_index].value;
+        return kve + kve_index;
     }
 }
 

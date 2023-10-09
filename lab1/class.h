@@ -32,11 +32,11 @@ public:
 
     void clear();
 
-    string& begin();
+    KVE* begin();
 
-    string& end();
+    KVE* end();
 
-    string& find(const string& key);
+    KVE* find(const string& key);
 
 private:
 
