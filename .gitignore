@@ -36,3 +36,4 @@ build
 out
 .vs
 CMakeSettings.json
+/lab2/CppProperties.json
