@@ -1,5 +1,5 @@
-﻿#include "Enemy.h"
-#include "Canvas.h"
+﻿#include "..\include\Canvas.h"
+#include "..\include\Enemy.h"
 #include <random>
 
 Enemy::Enemy() {
@@ -10,7 +10,6 @@ Enemy::Enemy() {
 
 void Enemy::renderEnemy(Canvas& can) {
 	can.setChar(en_x, en_y, '@');
-	can.renderCanvas();
 };
 
 int Enemy::getX() {

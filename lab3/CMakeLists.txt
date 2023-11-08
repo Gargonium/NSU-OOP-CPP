@@ -26,7 +26,7 @@ endif()
 
 # описываем основную библиотеку, т.е. библиотеку, содержащую все cpp-файлы, кроме main.cpp
 # TODO: отредактировать список cpp-файлов
-add_library(corelib OBJECT "Canvas.cpp" "Player.cpp" "Bullet.cpp" "Enemy.cpp")
+add_library(corelib OBJECT "src/Canvas.cpp" "src/Player.cpp" "src/Bullet.cpp" "src/Enemy.cpp")
 
 # описываем исполняемый файл основной программы: это main.cpp + основная библиотека
 add_executable(${exe_name} main.cpp )

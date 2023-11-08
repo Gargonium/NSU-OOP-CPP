@@ -1,10 +1,10 @@
 ﻿#include <iostream>
 #include <windows.h>
 #include <conio.h>
-#include "Bullet.h"
-#include "Player.h"
-#include "Canvas.h"
-#include "Enemy.h"
+#include "include\Canvas.h"
+#include "include\Player.h"
+#include "include\Bullet.h"
+#include "include\Enemy.h"
 
 using namespace std;
 
@@ -107,11 +107,12 @@ int main() {
 			is_win = true;
 		}
 
+		can.renderCanvas();
+
 	}
 
 	system("cls");
 	if (is_win) {
-		//cout << "YOU ARE THE WINNER!!!" << endl;
 		Sleep(300);
 		cout << "\tWINNER" << endl;
 		Sleep(300); 
@@ -122,7 +123,7 @@ int main() {
 		cout << "\tDINNER" << endl;
 	}
 	else {
-		cout << "Pathetic loser...";
+		cout << "Pathetic loser..." << endl;
 	}
 
 	pressAnyButton();

@@ -1,7 +1,7 @@
-#include "Canvas.h"
-#include "Player.h"
-#include "Bullet.h"
-#include "Enemy.h"
+#include "..\include\Canvas.h"
+#include "..\include\Player.h"
+#include "..\include\Bullet.h"
+#include "..\include\Enemy.h"
 #include <iostream>
 
 Bullet::Bullet(Player& pl) {
@@ -14,7 +14,6 @@ Bullet::~Bullet() {
 
 void Bullet::renderBullet(Canvas& can) {
 	can.setChar(bul_x, bul_y, 'o');
-	can.renderCanvas();
 };
 
 void Bullet::setBulletCoordinates(Player& pl) {
@@ -35,7 +34,6 @@ bool Bullet::bulletFly(Player& pl, Canvas& can, Enemy& en) {
 	if (bul_x == horizontal - 1) {
 		can.setChar(bul_x, bul_y, field_bg);
 		setBulletCoordinates(pl);
-		can.renderCanvas();
 		return false;
 	}
 	return true;

@@ -1,5 +1,5 @@
-#include "Player.h"
-#include "Canvas.h"
+#include "..\include\Canvas.h"
+#include "..\include\Player.h"
 
 
 Player::Player(int diff) {
@@ -25,7 +25,6 @@ int Player::getYCoordinate() {
 
 void Player::renderPlayer(Canvas& can) {
 	can.setChar(pl_x, pl_y, '$');
-	can.renderCanvas();
 };
 
 void Player::clearPlayer(Canvas& can) {
