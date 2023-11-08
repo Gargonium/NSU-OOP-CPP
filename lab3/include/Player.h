@@ -1,30 +1,61 @@
 #pragma once
-#include "Canvas.h"
 
-class Player : public Canvas {
-protected:
-	int pl_x;
-	int pl_y;
-	int difficulty;
+#include "Globals.h"
+#include "Box.h"
+
+class Player {
+private:
+
+	CHANGES m_changes;
+
+	Floor* level;
+	int floor_count;
+
+	int m_x;
+	int m_y;
+
+	int m_max_x;
+	int m_max_y;
+
+	int m_speed;
+
+	char m_player_sym;
+
+	bool is_coor_updated;
+	bool m_left_pressed;
+	bool m_right_pressed;
+	bool m_gravity;
+	bool is_in_air;
 
 public:
-	Player(int diff);
-
 	Player();
 
-	void renderPlayer(Canvas &can);
+	virtual ~Player();
 
-	int getXCoordinate();
+	void updatePlayer();
 
-	int getYCoordinate();
+	void drawPlayer();
 
-	void clearPlayer(Canvas& can);
+	void setCurMaxXY(int x, int y, int max_x, int max_y);
 
-	void moveLeft(Canvas& can);
+	void moveRight();
 
-	void moveRight(Canvas& can);
+	void moveLeft();
 
-	void moveUp(Canvas& can);
+	void stopRight();
 
-	void moveDown(Canvas& can);
+	void stopLeft();
+
+	void activateGravity();
+
+	void deactivateGravity();
+
+	void jump();
+
+	bool isCollision(char direction);
+
+	void setLevel(Floor* level, int floor_count);
+
+	bool isFloor(int x, int y);
+
 };
