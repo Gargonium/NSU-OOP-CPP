@@ -3,7 +3,22 @@
 void glv::drawChanges(CHANGES& ch) {
     if (ch.changes_count != 0) {
         HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
-        std::cout << "\b "; // ÝÒÎ ÍÀÄÎ ÏÅÐÅÄÅËÀÒÜ. ÏÎÊÀ ×ÒÎ ÊÎÑÒÛËÜ
+        std::cout << "\b "; 
+        for (int i = 0; i < ch.changes_count; i++) {
+            SetConsoleCursorPosition(hStdOut, ch.changes[i].coord);
+            std::cout << ch.changes[i].symbol;
+        }
+        ch.changes_count = 0;
+    }
+}
+
+void glv::drawChanges(CHANGES& ch, int old_x, int old_y) {
+    if (ch.changes_count != 0) {
+        HANDLE hStdOut = GetStdHandle(STD_OUTPUT_HANDLE);
+        
+        SetConsoleCursorPosition(hStdOut, makeCoord(old_x, old_y));
+        std::cout << "\b ";
+
         for (int i = 0; i < ch.changes_count; i++) {
             SetConsoleCursorPosition(hStdOut, ch.changes[i].coord);
             std::cout << ch.changes[i].symbol;

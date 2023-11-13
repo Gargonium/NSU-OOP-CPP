@@ -6,6 +6,15 @@ Engine::Engine() {
     player.setLevel(box.getLevel(), box.getFloorCount());
     is_open = true;
     delay = 500;
+
+    hStdIn = GetStdHandle(STD_INPUT_HANDLE); 
+    
+    GetConsoleMode(hStdIn, &prev_mode);
+    SetConsoleMode(hStdIn, ENABLE_EXTENDED_FLAGS | (prev_mode & ~ENABLE_QUICK_EDIT_MODE));
+
+    SetConsoleMode(hStdIn, ENABLE_MOUSE_INPUT); 
+
+    ReadConsoleInput(hStdIn, &InputRecord, 1, &Events); 
 };
 
 Engine::~Engine() {
@@ -25,6 +34,8 @@ void Engine::start() {
     uint64_t currentTime = current_timestamp();
     uint64_t fallTime = currentTime + delay;
 
+    std::thread in(input);
+
     while (is_open) {
         currentTime = current_timestamp();
 
@@ -33,7 +44,7 @@ void Engine::start() {
             player.activateGravity();
         }
 
-        input();
+        in.join();
         update();
         draw();
     }

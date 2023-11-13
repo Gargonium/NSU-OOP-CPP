@@ -121,3 +121,4 @@ bool Player:: isCollision(char direction) {
 
 	return false;
 }
+

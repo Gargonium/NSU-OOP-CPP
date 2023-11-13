@@ -17,6 +17,9 @@ private:
 	int m_max_x;
 	int m_max_y;
 
+	int m_old_x;
+	int m_old_y;
+
 	int m_speed;
 
 	char m_player_sym;

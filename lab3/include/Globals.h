@@ -16,6 +16,7 @@ typedef struct CHANGES {
 namespace glv {
 
 	void drawChanges(CHANGES& ch);
+	void drawChanges(CHANGES& ch, int old_x, int old_y);
 
 	COORD makeCoord(int x, int y);
 
