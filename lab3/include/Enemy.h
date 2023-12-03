@@ -3,17 +3,20 @@
 #include "GameObject.h"
 #include "GameContext.h"
 
-class Player : public GameObject {
+class Enemy : public GameObject {
 private:
-	int lives;
-	int start_x;
-	int start_y;
+	int id;
 	steady_clock_t last_time_move;
-	bool is_in_air;
+	steady_clock_t last_time_anim;
+	bool is_direction_left;
+	bool animation_on;
 public:
-	Player();
+	Enemy();
 	void action(GameContext* ctx);
 	void draw();
-	void setStartXY(int n_y, int n_x);
+
+	void setId(int ID);
+	int getId();
+
 	std::map<char, bool> findNearObj(GameContext* ctx);
 };

@@ -1,18 +1,23 @@
-﻿#include "include/Engine.h"
+#include "Engine.h"
+#include "UploadLvls.h"
 
-using namespace std;
-
-// TO DO:
-// 1. Изменить способ затирания старой картинки в GLobals.cpp
-// 2. Реализовать загрузку уровней из файлов 
-// 3. Реализовать запись уровней в файл
-
+/*
+TODO:
+1. Check if Enemy on the edge of the platform
+*/
 
 int main() {
 
-	Engine engine;
+	bool isUpload = 0;
 
-	engine.start();
-	
+	if (isUpload) {
+		startUpload();
+	}
+	else {
+		Engine engine;
+
+		engine.start();
+	}
+
 	return 0;
 }

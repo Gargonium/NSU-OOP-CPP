@@ -1,46 +1,38 @@
 #pragma once
 
+#include <curses.h>
 #include <iostream>
-#include <Windows.h>
-#include <chrono>
-#include "Globals.h"
+#include <fstream>
+#include <string>
+#include <tuple>
+#include <cstdio>
+
+#include <curses.h>
+#include <stdio.h>
+
+#include "GameContext.h"
+#include "Tile.h"
 #include "Player.h"
-#include "Box.h"
+#include "Door.h"
+#include "Enemy.h"
 
-#include <thread>
+#define ESC_CODE 27
 
-class Engine:public Player, public Box{
+class Engine {
 private:
-
-	void input();
-
-	void update();
-
-	void draw();
-
-	Box box;
-
+	GameContext ctx;
+	std::vector<Tile> level;
+	std::vector<Enemy> enemies;
 	Player player;
+	Door door;
 
-	bool is_open;
-
-	int delay;
-
-	INPUT_RECORD InputRecord;
-	DWORD Events; 
-	DWORD prev_mode;
-	HANDLE hStdIn;
-
-	uint64_t current_timestamp();
-
-	void KeyEventProc(KEY_EVENT_RECORD);
-	void MouseEventProc(MOUSE_EVENT_RECORD);
-	void ResizeEventProc(WINDOW_BUFFER_SIZE_RECORD);
-
+	int lvl_num;
+	int lvl_count;
 public:
 	Engine();
-
 	~Engine();
-
 	void start();
+	void readLevel();
+	void allAction(GameContext* ctx);
+	void allDraw();
 };
