@@ -64,3 +64,21 @@ std::vector<std::tuple<int, int>> GameContext::getEnemiesCoords() {
 std::vector<std::tuple<int, int>> GameContext::getTilesCoords() {
 	return tiles_coords;
 }
+
+void GameContext::setConsoleDimensions(int height, int width) {
+	console_height = height;
+	console_width = width;
+}
+
+int GameContext::getConsoleHeight() {
+	return console_height;
+}
+
+int GameContext::getConsoleWidth() {
+	return console_width;
+}
+
+void GameContext::clear() {
+	enemies_coords.clear();
+	tiles_coords.clear();
+}

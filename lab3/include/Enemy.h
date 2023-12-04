@@ -10,6 +10,8 @@ private:
 	steady_clock_t last_time_anim;
 	bool is_direction_left;
 	bool animation_on;
+
+	std::map<char, bool> findNearObj(GameContext* ctx);
 public:
 	Enemy();
 	void action(GameContext* ctx);
@@ -17,6 +19,4 @@ public:
 
 	void setId(int ID);
 	int getId();
-
-	std::map<char, bool> findNearObj(GameContext* ctx);
 };

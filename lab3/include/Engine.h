@@ -16,7 +16,10 @@
 #include "Door.h"
 #include "Enemy.h"
 
-#define ESC_CODE 27
+#define _WIN32_WINNT 0x0500
+#include <windows.h>
+
+#define ESC_CODE 27 // лучше const
 
 class Engine {
 private:
@@ -28,11 +31,15 @@ private:
 
 	int lvl_num;
 	int lvl_count;
+
+	int console_height;
+	int console_width;
+
+	void readLevel();
+	void allAction(GameContext* ctx);
+	void allDraw();
 public:
 	Engine();
 	~Engine();
 	void start();
-	void readLevel();
-	void allAction(GameContext* ctx);
-	void allDraw();
 };

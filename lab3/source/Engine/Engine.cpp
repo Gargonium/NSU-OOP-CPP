@@ -1,6 +1,13 @@
 #include "Engine.h"
 
 Engine::Engine() {
+
+	HWND consoleWindow = GetConsoleWindow();
+	SetWindowLong(consoleWindow, GWL_STYLE, GetWindowLong(consoleWindow, GWL_STYLE) & ~WS_MAXIMIZEBOX & ~WS_SIZEBOX);
+	RECT r;
+	GetWindowRect(consoleWindow, &r);
+	MoveWindow(consoleWindow, r.left, r.top, 915, 520, TRUE);
+
 	initscr();			// init curses
 	cbreak();			// disable buffering
 	noecho();			// no echo
@@ -14,8 +21,13 @@ Engine::Engine() {
 		exit(1);
 	}
 
-	lvl_num = 1;
+	lvl_num = 4;
 	lvl_count = 1;
+
+	getmaxyx(stdscr, console_height, console_width);
+	ctx.setConsoleDimensions(console_height, console_width);
+
+	
 }
 
 Engine::~Engine() {
@@ -41,6 +53,7 @@ void Engine::start() {
 				break;
 			}
 			ctx.NextLvl(false);
+			clear();
 			readLevel();
 		}
 
@@ -79,10 +92,9 @@ void Engine::readLevel() {
 
 	switch (lvl_count) {
 	case 1: lvl_path = "C:/CppProjects/nvotintsev-22205/lab3/levels/level1.mp"; break;
-	case 2: lvl_path = "../../levels/level2.mp"; break;
-	case 3: lvl_path = "../../levels/level3.mp"; break;
-	case 4: lvl_path = "../../levels/level4.mp"; break;
-	case 5: lvl_path = "../../levels/level5.mp"; break;
+	case 2: lvl_path = "C:/CppProjects/nvotintsev-22205/lab3/levels/level2.mp"; break;
+	case 3: lvl_path = "C:/CppProjects/nvotintsev-22205/lab3/levels/level3.mp"; break;
+	case 4: lvl_path = "C:/CppProjects/nvotintsev-22205/lab3/levels/level4.mp"; break;
 	default: break;
 	}
 
@@ -90,6 +102,10 @@ void Engine::readLevel() {
 	fin.open(lvl_path);
 	
 	int enemies_count;
+
+	level.clear();
+	enemies.clear();
+	ctx.clear();
 
 	if (fin.is_open()) {
 		int n_y;

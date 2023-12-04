@@ -14,6 +14,9 @@ private:
 	std::vector<std::tuple<int, int>> enemies_coords;
 	std::vector<std::tuple<int, int>> tiles_coords;
 
+	int console_height;
+	int console_width;
+
 public:
 	GameContext();
 	
@@ -31,8 +34,14 @@ public:
 	std::vector<std::tuple<int, int>> getEnemiesCoords();
 	std::vector<std::tuple<int, int>> getTilesCoords();
 
+	void clear();
+
 	void NextLvl(bool b);
 	void GameOver();
 	bool isNextLvl();
 	bool isGameOver();
+
+	void setConsoleDimensions(int height, int width);
+	int getConsoleHeight();
+	int getConsoleWidth();
 };

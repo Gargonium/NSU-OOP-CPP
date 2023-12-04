@@ -9,6 +9,7 @@ Enemy::Enemy() {
 
 void Enemy::action(GameContext* ctx) {
 	std::map<char, bool> isObj = findNearObj(ctx);
+
 	if ((now() - last_time_move) / 1ms > 100) {
 		if (is_direction_left) {
 			if (!isObj['L']) {
@@ -60,6 +61,8 @@ std::map<char, bool> Enemy::findNearObj(GameContext* ctx) {
 		{'R', false}, {'L', false}
 	};
 
+	bool findRight = false;
+	bool findLeft = false;
 	int x, y;
 
 	for (std::tuple<int, int> coords : tiles_coords) {
@@ -72,6 +75,22 @@ std::map<char, bool> Enemy::findNearObj(GameContext* ctx) {
 				isObj['L'] = true;
 			}
 		}
+
+		if (getY() + 1 == y) {
+			if (getX() - 1 == x) {
+				findLeft = true;
+			}
+			else if (getX() + 1 == x) {
+				findRight = true;
+			}
+		}
+	}
+
+	if (!findLeft) {
+		isObj['L'] = true;
+	}
+	if (!findRight) {
+		isObj['R'] = true;
 	}
 
 	std::tie(y, x) = door_coords;

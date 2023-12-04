@@ -1,9 +1,18 @@
 #include "Player.h"
 
 Player::Player() {
-	lives = 3;
+	lives = 5;
 	last_time_move = now();
 	is_in_air = false;
+}
+
+void Player::death(GameContext* ctx) {
+	lives--;
+	setX(start_x);
+	setY(start_y);
+	if (lives == 0) {
+		ctx->GameOver();
+	}
 }
 
 void Player::action(GameContext* ctx) {
@@ -14,13 +23,8 @@ void Player::action(GameContext* ctx) {
 		ctx->NextLvl(true);
 	}
 
-	if (isObj['E']) {
-		lives--;
-		setX(start_x);
-		setY(start_y);
-		if (lives == 0) {
-			ctx->GameOver();
-		}
+	if (isObj['E'] || getY() > ctx->getConsoleHeight() - 3) {
+		death(ctx);
 	}
 
 	switch (ctx->getInput()) {

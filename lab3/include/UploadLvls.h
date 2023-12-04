@@ -11,9 +11,10 @@ void startUpload();
 
 void uploadTile(std::string s, int y, int x, std::ofstream& fout);
 void uploadEntity(int y, int x, std::ofstream& fout);
-void uploadEntity(int y, int x, std::ofstream& fout);
-void uploadEntity(int y, int x, std::ofstream& fout);
 
 void setBorder(int console_height, int console_width, std::ofstream& fout);
 
 void uploadLVL1(int console_height, int console_width, std::ofstream& fout);
+void uploadLVL2(int console_height, int console_width, std::ofstream& fout);
+void uploadLVL3(int console_height, int console_width, std::ofstream& fout);
+void uploadLVL4(int console_height, int console_width, std::ofstream& fout);
