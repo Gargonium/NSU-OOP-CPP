@@ -18,4 +18,5 @@ public:
 	void action(GameContext* ctx);
 	void draw();
 	void setStartXY(int n_y, int n_x);
+	void setLives(int l);
 };

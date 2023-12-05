@@ -9,9 +9,7 @@ int main() {
 	}
 	else {
 		Engine engine;
-		engine.start();
 	}
-
 
 	return 0;
 }

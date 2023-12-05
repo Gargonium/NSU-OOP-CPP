@@ -27,6 +27,16 @@ void Player::action(GameContext* ctx) {
 		death(ctx);
 	}
 
+	if ((now() - last_time_move) / 1ms > 200) {
+		if (!isObj['D']) {
+			setY(getY() + 1);
+			last_time_move = now();
+		}
+		else {
+			is_in_air = false;
+		}
+	}
+
 	switch (ctx->getInput()) {
 	case 'a':
 		if (!isObj['L']) {
@@ -53,22 +63,12 @@ void Player::action(GameContext* ctx) {
 	default: break;
 	}
 
-	if ((now() - last_time_move) / 1ms > 200) {
-		if (!isObj['D']) {
-			setY(getY() + 1);
-			last_time_move = now();
-		}
-		else {
-			is_in_air = false;
-		}
-	}
-
 	ctx->setPlayerCoords(getY(), getX());
 }
 
 void Player::draw() {
 	out(getY(), getX(), "P");
-	out(1, 1, "Lives: %d", lives);
+	out(2, 1, "Lives: %d", lives);
 }
 
 void Player::setStartXY(int n_y, int n_x) {
@@ -128,4 +128,8 @@ std::map<char, bool> Player::findNearObj(GameContext* ctx) {
 	}
 
 	return isObj;
+}
+
+void Player::setLives(int l) {
+	lives = l;
 }

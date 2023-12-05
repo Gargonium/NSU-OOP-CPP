@@ -26,6 +26,6 @@ void GameObject::out(int y, int x, std::string s) {
 }
 
 void GameObject::out(int y, int x, const char* s, int value) {
-	wmove(stdscr, 1, 1);
+	wmove(stdscr, y, x);
 	wprintw(stdscr, s, value);
 }

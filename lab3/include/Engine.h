@@ -10,6 +10,7 @@
 #include <curses.h>
 #include <stdio.h>
 
+#include "GameObject.h"
 #include "GameContext.h"
 #include "Tile.h"
 #include "Player.h"
@@ -19,9 +20,9 @@
 #define _WIN32_WINNT 0x0500
 #include <windows.h>
 
-#define ESC_CODE 27 // лучше const
+const int ESC_CODE = 27;
 
-class Engine {
+class Engine : public GameObject {
 private:
 	GameContext ctx;
 	std::vector<Tile> level;
@@ -35,9 +36,23 @@ private:
 	int console_height;
 	int console_width;
 
+	bool game_on;
+
+	int difficulty;
+	bool is_music_on;
+
+	int time_score;
+	steady_clock_t game_launch_time;
+
+	std::string nickname;
+
 	void readLevel();
-	void allAction(GameContext* ctx);
-	void allDraw();
+	void action(GameContext* ctx);
+	void draw();
+
+	void Menu();
+	void Settings();
+	void LeaderBoard();
 public:
 	Engine();
 	~Engine();
