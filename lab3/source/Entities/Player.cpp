@@ -11,7 +11,7 @@ void Player::death(GameContext* ctx) {
 	setX(start_x);
 	setY(start_y);
 	if (lives == 0) {
-		ctx->GameOver();
+		ctx->GameOver(true);
 	}
 }
 
@@ -37,31 +37,40 @@ void Player::action(GameContext* ctx) {
 		}
 	}
 
+	isObj = findNearObj(ctx);
+
 	switch (ctx->getInput()) {
+	case 'ô':
 	case 'a':
 		if (!isObj['L']) {
 			setX(getX() - 1);
 		}
 		break;
+	case 'â':
 	case 'd':
 		if (!isObj['R']) {
 			setX(getX() + 1);
 		}
 		break;
 	case ' ':
-		if (!is_in_air && !isObj['u']) {
-			if (isObj['U']) {
-				setY(getY() - 1);
+		if (isObj['D']) {
+			if (!is_in_air && !isObj['u']) {
+				if (isObj['U']) {
+					setY(getY() - 1);
+				}
+				else {
+					setY(getY() - 2);
+				}
+				last_time_move = now();
+				is_in_air = true;
 			}
-			else {
-				setY(getY() - 2);
-			}
-			last_time_move = now();
-			is_in_air = true;
 		}
 		break;
 	default: break;
 	}
+
+	setX(std::clamp(getX(), 1, 120 - 2));
+	setY(std::clamp(getY(), 1, 30 - 2));
 
 	ctx->setPlayerCoords(getY(), getX());
 }

@@ -1,15 +1,5 @@
 #pragma once
 
-#include <curses.h>
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <tuple>
-#include <cstdio>
-
-#include <curses.h>
-#include <stdio.h>
-
 #include "GameObject.h"
 #include "GameContext.h"
 #include "Tile.h"
@@ -26,6 +16,7 @@ class Engine : public GameObject {
 private:
 	GameContext ctx;
 	std::vector<Tile> level;
+	std::vector<Tile> lvl_border;
 	std::vector<Enemy> enemies;
 	Player player;
 	Door door;
@@ -46,15 +37,30 @@ private:
 
 	std::string nickname;
 
+	std::vector<std::tuple<std::string, std::string, int>> leader_board;
+
+	char* leaderboard_path;
+	char* level1_path;
+	char* level2_path;
+	char* level3_path;
+	char* level4_path;
+	char* en_mus_path;
+	char* bg_mus_path;
+	char* walk_mus_path;
+	char* menu_mus_path;
+	char* death_mus_path;
+	char* door_mus_path;
+
 	void readLevel();
 	void action(GameContext* ctx);
 	void draw();
 
-	void Menu();
 	void Settings();
 	void LeaderBoard();
+	void updateLeaderBoard(bool is_new);
 public:
 	Engine();
 	~Engine();
 	void start();
+	void Menu();
 };

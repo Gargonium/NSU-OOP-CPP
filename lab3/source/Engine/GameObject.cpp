@@ -29,3 +29,8 @@ void GameObject::out(int y, int x, const char* s, int value) {
 	wmove(stdscr, y, x);
 	wprintw(stdscr, s, value);
 }
+
+void GameObject::out(int y, int x, const char* s, int value1, int value2) {
+	wmove(stdscr, y, x);
+	wprintw(stdscr, s, value1, value2);
+}

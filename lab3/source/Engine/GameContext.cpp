@@ -21,12 +21,12 @@ bool GameContext::isNextLvl() {
 	return next_lvl;
 }
 
-void GameContext::NextLvl(bool b) {
-	next_lvl = b;
+void GameContext::NextLvl(bool is_true) {
+	next_lvl = is_true;
 }
 
-void GameContext::GameOver() {
-	game_over = true;
+void GameContext::GameOver(bool is_true) {
+	game_over = is_true;
 }
 
 void GameContext::setPlayerCoords(int y, int x) {
@@ -81,4 +81,39 @@ int GameContext::getConsoleWidth() {
 void GameContext::clear() {
 	enemies_coords.clear();
 	tiles_coords.clear();
+}
+
+void GameContext::setMusicPaths(char* enemy, char* walk, char* death, char* door) {
+	en_mus_path = enemy;
+	walk_mus_path = walk;
+	death_mus_path = death;
+	door_mus_path = door;
+};
+char* GameContext::getEnemyMusic() {
+	return en_mus_path;
+};
+char* GameContext::getWalkMusic() {
+	return walk_mus_path;
+};
+char* GameContext::getDeathMusic() {
+	return death_mus_path;
+};
+char* GameContext::getDoorMusic() {
+	return door_mus_path;
+};
+
+void GameContext::setMusicStatus(bool is_true) {
+	is_music_on = is_true;
+}
+
+bool GameContext::getMusicStatus() {
+	return is_music_on;
+}
+
+void GameContext::setDifficulty(int diff) {
+	difficulty = diff;
+}
+
+int GameContext::getDifficulty() {
+	return difficulty;
 }

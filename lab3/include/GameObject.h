@@ -5,6 +5,17 @@
 #include <string>
 #include <map>
 #include <string>
+#include <algorithm>
+#include <cctype>
+
+#include <windows.h>
+
+#include <iostream>
+#include <fstream>
+#include <tuple>
+#include <cstdio>
+
+#include <stdio.h>
 
 #include "GameContext.h"
 
@@ -24,5 +35,6 @@ public:
 	void setX(int n_x);
 	void out(int y, int x, std::string s);
 	void out(int y, int x, const char* s, int value);
+	void out(int y, int x, const char* s, int value1, int value2);
 	steady_clock_t now();
 };

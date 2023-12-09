@@ -30,11 +30,16 @@ void uploadEntity(int y, int x, std::ofstream& fout) {
 }
 
 void setBorder(int console_height, int console_width, std::ofstream& fout) {
-	for (int i = 0; i < console_width; i++) {
+
+	int border_count = (console_width - 2) * 2 + (console_height - 2) * 2 + 4;
+
+	fout << border_count << std::endl;
+
+	for (int i = 1; i < console_width - 1; i++) {
 		uploadTile("-", console_height - 1, i, fout);
 		uploadTile("-", 0, i, fout);
 	}
-	for (int i = 0; i < console_height - 1; i++) {
+	for (int i = 1; i < console_height - 1; i++) {
 		uploadTile("|", i, console_width - 1, fout);
 		uploadTile("|", i, 0, fout);
 	}
@@ -45,7 +50,7 @@ void setBorder(int console_height, int console_width, std::ofstream& fout) {
 }
 
 void uploadLVL1(int console_height, int console_width, std::ofstream& fout) {
-	fout.open("C:/CppProjects/nvotintsev-22205/lab3/levels/level1.mp", std::ios::binary | std::ios::out);
+	fout.open("../../files/levels/level1.mp", std::ios::binary | std::ios::out);
 
 	int en_count = 0;
 	uploadEntity(19, 2, fout); // Upload Player
@@ -56,32 +61,36 @@ void uploadLVL1(int console_height, int console_width, std::ofstream& fout) {
 	for (int i = 0; i < 30; i++) {
 		uploadTile("F", 20, 1 + i, fout);
 	}
-	uploadTile("F", 19, 32, fout);
-	uploadTile("F", 19, 33, fout);
-	uploadTile("F", 18, 35, fout);
-	uploadTile("F", 18, 36, fout);
-	uploadTile("F", 18, 38, fout);
-	uploadTile("F", 18, 39, fout);
-	uploadTile("F", 19, 41, fout);
-	uploadTile("F", 19, 42, fout);
-	for (int i = 0; i < 22; i++) {
-		uploadTile("F", 20, 44 + i, fout);
+
+	for (int i = 0; i < 4; i++) {
+		uploadTile("F", 19, 31 + i, fout);
 	}
 	for (int i = 0; i < 4; i++) {
-		uploadTile("F", 19, 66 + i, fout);
-	}
-	for (int i = 0; i < 4; i++) {
-		uploadTile("F", 18, 70 + i, fout);
+		uploadTile("F", 18, 35 + i, fout);
 	}
 	for (int i = 0; i < 15; i++) {
-		uploadTile("F", 17, 74 + i, fout);
+		uploadTile("F", 17, 39 + i, fout);
 	}
 	for (int i = 0; i < 4; i++) {
-		uploadTile("F", 18, 89 + i, fout);
+		uploadTile("F", 18, 54 + i, fout);
 	}
 	for (int i = 0; i < 4; i++) {
-		uploadTile("F", 19, 93 + i, fout);
+		uploadTile("F", 19, 58 + i, fout);
 	}
+
+	for (int i = 0; i < 22; i++) {
+		uploadTile("F", 20, 62 + i, fout);
+	}
+
+	uploadTile("F", 19, 85, fout);
+	uploadTile("F", 19, 86, fout);
+	uploadTile("F", 18, 88, fout);
+	uploadTile("F", 18, 89, fout);
+	uploadTile("F", 18, 91, fout);
+	uploadTile("F", 18, 92, fout);
+	uploadTile("F", 19, 94, fout);
+	uploadTile("F", 19, 95, fout);
+	
 	for (int i = 0; i < 22; i++) {
 		uploadTile("F", 20, 97 + i, fout);
 	}
@@ -89,7 +98,7 @@ void uploadLVL1(int console_height, int console_width, std::ofstream& fout) {
 }
 
 void uploadLVL2(int console_height, int console_width, std::ofstream& fout) {
-	fout.open("C:/CppProjects/nvotintsev-22205/lab3/levels/level2.mp", std::ios::binary | std::ios::out);
+	fout.open("../../files/levels/level2.mp", std::ios::binary | std::ios::out);
 
 	int en_count = 1;
 	uploadEntity(19, 2, fout); // Upload Player
@@ -131,7 +140,7 @@ void uploadLVL2(int console_height, int console_width, std::ofstream& fout) {
 }
 
 void uploadLVL3(int console_height, int console_width, std::ofstream& fout) {
-	fout.open("C:/CppProjects/nvotintsev-22205/lab3/levels/level3.mp", std::ios::binary | std::ios::out);
+	fout.open("../../files/levels/level3.mp", std::ios::binary | std::ios::out);
 
 	int en_count = 2;
 	uploadEntity(18, 2, fout); // Upload Player
@@ -152,14 +161,14 @@ void uploadLVL3(int console_height, int console_width, std::ofstream& fout) {
 	uploadTile("F", 18, 34, fout);
 	uploadTile("F", 17, 35, fout);
 	uploadTile("F", 17, 36, fout);
+	uploadTile("F", 17, 41, fout);
 	uploadTile("F", 17, 42, fout);
-	uploadTile("F", 17, 43, fout);
+	uploadTile("F", 18, 43, fout);
 	uploadTile("F", 18, 44, fout);
-	uploadTile("F", 18, 45, fout);
+	uploadTile("F", 19, 45, fout);
 	uploadTile("F", 19, 46, fout);
-	uploadTile("F", 19, 47, fout);
-	for (int i = 0; i < 22; i++) {
-		uploadTile("F", 20, 48 + i, fout);
+	for (int i = 0; i < 23; i++) {
+		uploadTile("F", 20, 47 + i, fout);
 	}
 	uploadTile("F", 19, 71, fout);
 	uploadTile("F", 18, 73, fout);
@@ -182,7 +191,7 @@ void uploadLVL3(int console_height, int console_width, std::ofstream& fout) {
 }
 
 void uploadLVL4(int console_height, int console_width, std::ofstream& fout) {
-	fout.open("C:/CppProjects/nvotintsev-22205/lab3/levels/level4.mp", std::ios::binary | std::ios::out);
+	fout.open("../../files/levels/level4.mp", std::ios::binary | std::ios::out);
 
 	int en_count = 4;
 	uploadEntity(18, 2, fout); // Upload Player

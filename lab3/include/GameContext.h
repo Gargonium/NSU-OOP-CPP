@@ -17,6 +17,15 @@ private:
 	int console_height;
 	int console_width;
 
+	char* en_mus_path;
+	char* walk_mus_path;
+	char* door_mus_path;
+	char* death_mus_path;
+
+	bool is_music_on;
+
+	int difficulty;
+
 public:
 	GameContext();
 	
@@ -36,12 +45,24 @@ public:
 
 	void clear();
 
-	void NextLvl(bool b);
-	void GameOver();
+	void NextLvl(bool is_true);
+	void GameOver(bool is_true);
 	bool isNextLvl();
 	bool isGameOver();
 
 	void setConsoleDimensions(int height, int width);
 	int getConsoleHeight();
 	int getConsoleWidth();
+
+	void setMusicPaths(char* enemy, char* walk, char* death, char* door);
+	char* getEnemyMusic();
+	char* getWalkMusic();
+	char* getDeathMusic();
+	char* getDoorMusic();
+
+	void setMusicStatus(bool is_true);
+	bool getMusicStatus();
+
+	void setDifficulty(int diff);
+	int getDifficulty();
 };
