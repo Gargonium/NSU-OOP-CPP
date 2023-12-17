@@ -1,9 +1,9 @@
 #include <iostream>
-#include <tuple>
-#include <utility>
 
+#include "include/MyTuple.h"
 
-/* C ограничением С++11 */
+/* C ограничением С++11 */ 
+/*
 template<std::size_t index = 0, typename... Types>
 typename std::enable_if<index == sizeof...(Types)>::type
 printTuple11(std::ostream&, const std::tuple<Types...>&) {
@@ -19,9 +19,11 @@ printTuple11(std::ostream& os, const std::tuple<Types...>& t) {
     os << std::get<index>(t);
     printTuple11<index + 1>(os, t);
 }
+*/
 
 /* Без ограничения */
 /* Используя constexpr */
+/*
 template<std::size_t Index = 0, typename... Types>
 std::ostream& printTupleConstExpr(std::ostream& os, const std::tuple<Types...>& t) {
     if constexpr (Index < sizeof...(Types)) {
@@ -32,23 +34,29 @@ std::ostream& printTupleConstExpr(std::ostream& os, const std::tuple<Types...>& 
     }
     return os;
 }
+*/
 
 /* Используя fold expressions */
+/*
 template<typename... Types, std::size_t... Indices>
 void printTupleFold(std::ostream& os, const std::tuple<Types...>& t, std::index_sequence<Indices...>) {
     ((os << (Indices == 0 ? "" : ", ") << std::get<Indices>(t)), ...);
 }
-
+*/
 
 /* Перегрузка оператора << */
+/*
 template<typename... Types>
 std::ostream& operator<<(std::ostream& os, const std::tuple<Types...>& t) {
     printTupleFold(os, t, std::make_index_sequence<sizeof... (Types)>());
     return os;
 }
+*/
 
 int main() {
-    std::tuple<int, double, std::string> t(10, 3.14, "Hello");
-    std::cout << t << std::endl;
+    MyTuple<int, double, std::string> tp(10, 3.14, "Hello");
+
+    std::cout << tp << std::endl;
+
     return 0;
 }
