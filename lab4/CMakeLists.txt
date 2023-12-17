@@ -2,7 +2,7 @@
 project(lab4)
 
 set(exe_name ${PROJECT_NAME})
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
 add_executable (${PROJECT_NAME} main.cpp  "src/Tuple.cpp" "include/Tuple.h")
 
