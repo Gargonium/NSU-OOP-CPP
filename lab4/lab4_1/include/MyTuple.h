@@ -23,8 +23,7 @@ private:
 public:
     MyTuple() = default;
 
-    MyTuple(const T& value, const Ts&... values)
-        : value_(value), rest_(values...) {}
+    MyTuple(const T& value, const Ts&... values) : value_(value), rest_(values...) {}
 
     template <size_t Index>
     decltype(auto) get() const noexcept {
